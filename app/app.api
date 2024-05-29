@@ -1,0 +1,43 @@
+syntax = "v1"
+
+type Request {
+	Name string `path:"name,options=you|me"`
+}
+
+type Response {
+	Message string `json:"message"`
+}
+
+type LoginRequest {
+	UserName string `form:"userName"`
+	Password string `form:"password"`
+}
+
+type UserInfoResponse {
+	UserName string `json:"userName"`
+	Addr     string `json:"addr"`
+	Id       uint   `json:"id"`
+}
+
+service app-api {
+	@handler app
+	get / returns (string)
+}
+
+@server (
+	prefix: /api/users
+)
+service app-api {
+	@handler login
+	post /login (LoginRequest) returns (string)
+}
+
+@server (
+	jwt:    Auth
+	prefix: /api/users
+)
+service app-api {
+	@handler userInfo
+	get /info returns (UserInfoResponse)
+}
+
