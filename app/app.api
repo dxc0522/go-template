@@ -9,18 +9,19 @@ type Response {
 }
 
 type LoginRequest {
-	UserName string `form:"userName"`
+	UserName string `form:"userName",options`
 	Password string `form:"password"`
+	Mobile   string `form:"mobile"`
 }
 
 type UserInfoResponse {
 	UserName string `json:"userName"`
-	Addr     string `json:"addr"`
+	Password string `json:"password"`
 	Id       uint   `json:"id"`
 }
 
 service app-api {
-	@doc(
+	@doc (
 		summary: "Default"
 	)
 	@handler app
@@ -31,7 +32,7 @@ service app-api {
 	prefix: /api/users
 )
 service app-api {
-	@doc(
+	@doc (
 		summary: "Login"
 	)
 	@handler login
@@ -43,7 +44,7 @@ service app-api {
 	prefix: /api/users
 )
 service app-api {
-	@doc(
+	@doc (
 		summary: "App"
 	)
 	@handler userInfo

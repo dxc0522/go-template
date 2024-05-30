@@ -7,6 +7,7 @@ import (
 	"github.com/zeromicro/go-zero/core/logx"
 	"github.com/zeromicro/go-zero/rest/httpx"
 	"net/http"
+	"os"
 
 	"github.com/go-template/app/internal/config"
 	"github.com/go-template/app/internal/handler"
@@ -27,7 +28,10 @@ func main() {
 	server := rest.MustNewServer(c.RestConf, rest.WithUnauthorizedCallback(JwtUnauthorizedResult))
 	defer server.Stop()
 
-	ctx := svc.NewServiceContext(c)
+	ctx, err := svc.NewServiceContext(c)
+	if err != nil {
+		os.Exit(0)
+	}
 	handler.RegisterHandlers(server, ctx)
 
 	fmt.Printf("Starting server at %s:%d...\n", c.Host, c.Port)

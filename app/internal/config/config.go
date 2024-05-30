@@ -4,7 +4,8 @@ import "github.com/zeromicro/go-zero/rest"
 
 type Config struct {
 	rest.RestConf
-	Auth Auth
+	Auth     Auth
+	DBConfig DBConfig
 }
 
 type Auth struct {
@@ -12,7 +13,6 @@ type Auth struct {
 	AccessExpire int64
 }
 type DBConfig struct {
-	MySql struct {
-		Database string
-	}
+	DriverName string
+	Database   string
 }

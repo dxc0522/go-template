@@ -16,7 +16,7 @@ func Response(r *http.Request, w http.ResponseWriter, resp interface{}, err erro
 	if err == nil {
 		//成功返回
 		r := &Body{
-			Code: 0,
+			Code: http.StatusOK,
 			Msg:  http.StatusText(http.StatusOK),
 			Data: resp,
 		}
@@ -24,9 +24,9 @@ func Response(r *http.Request, w http.ResponseWriter, resp interface{}, err erro
 		return
 	}
 	//错误返回
-	httpx.WriteJson(w, http.StatusBadRequest, &Body{
-		Code: http.StatusUnauthorized,
-		Msg:  http.StatusText(http.StatusUnauthorized),
+	httpx.WriteJson(w, http.StatusInternalServerError, &Body{
+		Code: http.StatusInternalServerError,
+		Msg:  err.Error(),
 		Data: nil,
 	})
 

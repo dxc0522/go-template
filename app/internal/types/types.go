@@ -2,8 +2,9 @@
 package types
 
 type LoginRequest struct {
-	UserName string `form:"userName"`
+	UserName string `form:"userName",options`
 	Password string `form:"password"`
+	Mobile   string `form:"mobile"`
 }
 
 type Request struct {

@@ -13,6 +13,7 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 	server.AddRoutes(
 		[]rest.Route{
 			{
+				// Default
 				Method:  http.MethodGet,
 				Path:    "/",
 				Handler: appHandler(serverCtx),
@@ -23,6 +24,7 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 	server.AddRoutes(
 		[]rest.Route{
 			{
+				// Login
 				Method:  http.MethodPost,
 				Path:    "/login",
 				Handler: loginHandler(serverCtx),
@@ -34,6 +36,7 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 	server.AddRoutes(
 		[]rest.Route{
 			{
+				// App
 				Method:  http.MethodGet,
 				Path:    "/info",
 				Handler: userInfoHandler(serverCtx),

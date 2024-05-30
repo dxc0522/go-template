@@ -2,7 +2,10 @@ package logic
 
 import (
 	"context"
+	"errors"
+	"github.com/go-template/app/dbmodel"
 	"github.com/go-template/common/jwts"
+	"gorm.io/gorm"
 	"net/http"
 
 	"github.com/go-template/app/internal/svc"
@@ -30,10 +33,28 @@ func NewLoginLogic(ctx context.Context, svcCtx *svc.ServiceContext, reqCtx *http
 }
 
 func (l *LoginLogic) Login(req *types.LoginRequest) (resp string, err error) {
-	// todo: add your logic here and delete this line
+	// check user
+	exitUser := dbmodel.Users{}
+	err = l.svcCtx.DB.Where(&dbmodel.Users{
+		Name: req.UserName,
+	}).Take(&exitUser).Error
+	if !errors.Is(err, gorm.ErrRecordNotFound) && err != nil || exitUser.Id > 0 {
+		return "exit user name", errors.New("exit user name")
+	}
+	// save user to db
+	user := dbmodel.Users{
+		Name:     req.UserName,
+		Password: req.Password,
+		Mobile:   req.Mobile,
+	}
+	err = l.svcCtx.DB.Save(&user).Error
+	if err != nil {
+		return "error", err
+	}
+	// set token
 	token, err := jwts.GenToken(jwts.JwtPayLoad{
 		Username: req.UserName,
-		UserID:   1,
+		UserID:   uint(user.Id),
 		Role:     1,
 	}, l.svcCtx.Config.Auth.AccessSecret, l.svcCtx.Config.Auth.AccessExpire)
 	if err != nil {
