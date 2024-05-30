@@ -20,6 +20,9 @@ type UserInfoResponse {
 }
 
 service app-api {
+	@doc(
+		summary: "Default"
+	)
 	@handler app
 	get / returns (string)
 }
@@ -28,6 +31,9 @@ service app-api {
 	prefix: /api/users
 )
 service app-api {
+	@doc(
+		summary: "Login"
+	)
 	@handler login
 	post /login (LoginRequest) returns (string)
 }
@@ -37,6 +43,9 @@ service app-api {
 	prefix: /api/users
 )
 service app-api {
+	@doc(
+		summary: "App"
+	)
 	@handler userInfo
 	get /info returns (UserInfoResponse)
 }
