@@ -20,6 +20,7 @@ type UserInfoLogic struct {
 	respCtx *http.ResponseWriter
 }
 
+// App
 func NewUserInfoLogic(ctx context.Context, svcCtx *svc.ServiceContext, reqCtx *http.Request, respCtx *http.ResponseWriter) *UserInfoLogic {
 	return &UserInfoLogic{
 		Logger:  logx.WithContext(ctx),
@@ -30,8 +31,9 @@ func NewUserInfoLogic(ctx context.Context, svcCtx *svc.ServiceContext, reqCtx *h
 	}
 }
 
-func (l *UserInfoLogic) UserInfo() (resp *types.UserInfoResponse, err error) {
+func (l *UserInfoLogic) UserInfo(req *types.UserInfoRequest) (resp *types.UserInfoResponse, err error) {
 	// todo: add your logic here and delete this line
+	l.Info(req)
 	userId := l.ctx.Value("user_id").(json.Number)
 	fmt.Printf("%v %T", userId, userId)
 	userName := l.ctx.Value("username").(string)

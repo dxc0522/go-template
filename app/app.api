@@ -14,6 +14,13 @@ type LoginRequest {
 	Mobile   string `form:"mobile"`
 }
 
+type UserInfoRequest {
+	Tag      string `path:"tag,options=you|me"`
+	Password string `json:"password,optional"`
+	Age      uint   `json:"age,range=[0:100]"`
+	Gender   string `json:"gender,default=male"`
+}
+
 type UserInfoResponse {
 	UserName string `json:"userName"`
 	Password string `json:"password"`
@@ -30,6 +37,7 @@ service app-api {
 
 @server (
 	prefix: /api/users
+// group: user // group分组
 )
 service app-api {
 	@doc (
@@ -48,6 +56,6 @@ service app-api {
 		summary: "App"
 	)
 	@handler userInfo
-	get /info returns (UserInfoResponse)
+	post /info/:tag (UserInfoRequest) returns (UserInfoResponse)
 }
 

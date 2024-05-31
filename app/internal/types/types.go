@@ -15,8 +15,15 @@ type Response struct {
 	Message string `json:"message"`
 }
 
+type UserInfoRequest struct {
+	Tag      string `path:"tag,options=you|me"`
+	Password string `json:"password,optional"`
+	Age      uint   `json:"age,range=[0:100]"`
+	Gender   string `json:"gender,default=male"`
+}
+
 type UserInfoResponse struct {
 	UserName string `json:"userName"`
-	Addr     string `json:"addr"`
+	Password string `json:"password"`
 	Id       uint   `json:"id"`
 }
