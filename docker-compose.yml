@@ -1,0 +1,15 @@
+name: local-project
+services:
+  study-go:
+    container_name: study-go
+    restart: always
+    ports:
+      - "8888:8888"
+    build:
+      context: ./
+      dockerfile: ./app/Dockerfile
+    networks:
+      - public
+networks:
+  public:
+    external: true

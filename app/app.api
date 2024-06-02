@@ -27,6 +27,9 @@ type UserInfoResponse {
 	Id       uint   `json:"id"`
 }
 
+@server (
+	prefix: /api
+)
 service app-api {
 	@doc (
 		summary: "Default"
