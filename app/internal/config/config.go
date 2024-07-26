@@ -9,10 +9,10 @@ type Config struct {
 }
 
 type Auth struct {
-	AccessSecret string
-	AccessExpire int64
+	AccessSecret string `json:",env=AuthAccessSecret"`
+	AccessExpire int64  `json:",env=AuthAccessExpire"`
 }
 type DBConfig struct {
-	DriverName string
-	Database   string
+	DriverName string `json:",env=DBDriverName"`
+	Database   string `json:",env=DBDatabase"`
 }

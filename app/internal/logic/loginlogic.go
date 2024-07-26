@@ -38,7 +38,7 @@ func (l *LoginLogic) Login(req *types.LoginRequest) (resp string, err error) {
 	err = l.svcCtx.DB.Where(&dbmodel.Users{
 		Name: req.UserName,
 	}).Take(&exitUser).Error
-	if !errors.Is(err, gorm.ErrRecordNotFound) && err != nil || exitUser.Id > 0 {
+	if !errors.Is(err, gorm.ErrRecordNotFound) && err != nil || exitUser.ID > 0 {
 		return "exit user name", errors.New("exit user name")
 	}
 	// save user to db
@@ -54,7 +54,7 @@ func (l *LoginLogic) Login(req *types.LoginRequest) (resp string, err error) {
 	// set token
 	token, err := jwts.GenToken(jwts.JwtPayLoad{
 		Username: req.UserName,
-		UserID:   uint(user.Id),
+		UserID:   uint(user.ID),
 		Role:     1,
 	}, l.svcCtx.Config.Auth.AccessSecret, l.svcCtx.Config.Auth.AccessExpire)
 	if err != nil {

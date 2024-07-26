@@ -1,6 +1,7 @@
 FROM golang:1.21.6-alpine AS builder
-
 LABEL stage=gobuilder
+
+ARG DEV_MODE
 
 ENV CGO_ENABLED 0
 ENV GOPROXY https://goproxy.cn,direct
@@ -13,11 +14,10 @@ WORKDIR /build
 ADD go.mod .
 ADD go.sum .
 COPY . .
-COPY app/etc ./app/etc
+COPY "app/etc/$DEV_MODE.yaml" ./app/etc/config.yaml
 
 RUN go build -ldflags="-s -w" -o ./app/app app/app.go
 
-# 空镜像仅用于运行go
 FROM scratch
 
 COPY --from=builder /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/ca-certificates.crt
@@ -27,7 +27,8 @@ ENV TZ Asia/Shanghai
 ENV ENV_MODE=config
 WORKDIR /app
 COPY --from=builder /build/app/app ./app
-COPY --from=builder /build/app/etc/app-prd.yaml ./etc/app-prd.yaml
+COPY --from=builder /build/app/migrations/ ./migrations/
+COPY --from=builder /build/app/etc/config.yaml ./config.yaml
 
 EXPOSE 8888
-CMD ["./app", "-f", "./etc/app-prd.yaml"]
+CMD ["./app", "-f", "./config.yaml"]

@@ -3,11 +3,11 @@ services:
   study-go:
     container_name: study-go
     restart: always
-    ports:
-      - "8888:8888"
     build:
       context: ./
       dockerfile: ./app/Dockerfile
+      args:
+        - DEV_MODE
     networks:
       - public
 networks:

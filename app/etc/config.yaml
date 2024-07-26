@@ -1,10 +1,10 @@
-Name: app-api
+Name: app
 Host: 0.0.0.0
 Port: 8888
 
 DBConfig:
   DriverName: mysql
-  Database: root:123456@tcp(127.0.0.1:3306)/local?charset=utf8mb4&parseTime=True&loc=Local
+  Database: root:12345@tcp(127.0.0.1:3306)/local?charset=utf8mb4&parseTime=True&loc=Local
 
 Auth:
   AccessSecret: I1QqBMAYklipg4PHh3r9RvCTyU8d0t
