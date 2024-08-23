@@ -2,17 +2,9 @@
 package types
 
 type LoginRequest struct {
-	UserName string `form:"userName",options`
-	Password string `form:"password"`
-	Mobile   string `form:"mobile"`
-}
-
-type Request struct {
-	Name string `path:"name,options=you|me"`
-}
-
-type Response struct {
-	Message string `json:"message"`
+	UserName string `form:"userName,optional"` // 用户
+	Password string `form:"password"`          // 密码
+	Mobile   string `form:"mobile"`            // 手机号
 }
 
 type UserInfoRequest struct {

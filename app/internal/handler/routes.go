@@ -13,18 +13,6 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 	server.AddRoutes(
 		[]rest.Route{
 			{
-				// Default
-				Method:  http.MethodGet,
-				Path:    "/",
-				Handler: appHandler(serverCtx),
-			},
-		},
-		rest.WithPrefix("/api"),
-	)
-
-	server.AddRoutes(
-		[]rest.Route{
-			{
 				// Login
 				Method:  http.MethodPost,
 				Path:    "/login",

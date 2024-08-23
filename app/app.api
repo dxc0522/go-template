@@ -1,53 +1,43 @@
 syntax = "v1"
 
-type Request {
-	Name string `path:"name,options=you|me"`
-}
-
-type Response {
-	Message string `json:"message"`
-}
-
-type LoginRequest {
-	UserName string `form:"userName",options`
-	Password string `form:"password"`
-	Mobile   string `form:"mobile"`
-}
-
-type UserInfoRequest {
-	Tag      string `path:"tag,options=you|me"`
-	Password string `json:"password,optional"`
-	Age      uint   `json:"age,range=[0:100]"`
-	Gender   string `json:"gender,default=male"`
-}
-
-type UserInfoResponse {
-	UserName string `json:"userName"`
-	Password string `json:"password"`
-	Id       uint   `json:"id"`
-}
-
-@server (
-	prefix: /api
+info (
+	title:   "api 文件完整示例写法"
+	desc:    "演示如何编写 api 文件"
+	author:  "keson.an"
+	date:    "2022 年 12 月 26 日"
+	version: "v1"
 )
-service app-api {
-	@doc (
-		summary: "Default"
-	)
-	@handler app
-	get / returns (string)
-}
+
+type (
+	LoginRequest {
+		UserName string `form:"userName,optional"` // 用户
+		Password string `form:"password"` // 密码
+		Mobile   string `form:"mobile"` // 手机号
+	}
+	UserInfoRequest {
+		Tag      string `path:"tag,options=you|me"`
+		Password string `json:"password,optional"`
+		Age      uint   `json:"age,range=[0:100]"`
+		Gender   string `json:"gender,default=male"`
+	}
+	UserInfoResponse {
+		UserName string `json:"userName"`
+		Password string `json:"password"`
+		Id       uint   `json:"id"`
+	}
+)
 
 @server (
 	prefix: /api/users
-// group: user // group分组
+//  group: user // group分组
 )
 service app-api {
 	@doc (
 		summary: "Login"
+		desc:    "Login desc"
 	)
 	@handler login
-	post /login (LoginRequest) returns (string)
+	post /login (LoginRequest)
 }
 
 @server (

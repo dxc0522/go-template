@@ -4,20 +4,20 @@ import (
 	"flag"
 	"fmt"
 	"github.com/go-template/app/internal/config"
+	"github.com/go-template/app/internal/handler"
+	"github.com/go-template/app/internal/svc"
 	"github.com/go-template/common/response"
 	"github.com/zeromicro/go-zero/core/logx"
 	"github.com/zeromicro/go-zero/rest/httpx"
+	"log"
 	"net/http"
 	"os"
-
-	"github.com/go-template/app/internal/handler"
-	"github.com/go-template/app/internal/svc"
 
 	"github.com/zeromicro/go-zero/core/conf"
 	"github.com/zeromicro/go-zero/rest"
 )
 
-var configFile = flag.String("f", "etc/config.yaml", "the config file")
+var configFile = flag.String("f", "etc/app-api.yaml", "the config file")
 
 func main() {
 	flag.Parse()
@@ -33,6 +33,10 @@ func main() {
 		os.Exit(0)
 	}
 	handler.RegisterHandlers(server, ctx)
+
+	for _, route := range server.Routes() {
+		log.Printf("%s - %s", route.Method, route.Path)
+	}
 
 	fmt.Printf("Starting server at %s:%d...\n", c.Host, c.Port)
 	server.Start()
