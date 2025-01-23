@@ -1,13 +1,13 @@
 name: local-project
 services:
-  study-go:
-    container_name: study-go
-    restart: always
+  app:
+    container_name: app
+    restart: unless-stopped
     build:
       context: ./
-      dockerfile: ./app/Dockerfile
+      dockerfile: Dockerfile
       args:
-        - DEV_MODE
+        - DEV_MODE=app
     networks:
       - public
 networks:
