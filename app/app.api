@@ -1,0 +1,49 @@
+syntax = "v1"
+
+type Request {
+	Name string `path:"name,options=you|me"`
+}
+
+type Response {
+	Message string `json:"message"`
+}
+
+type UserReq {
+	Name     string `json:"name"`
+	Email    string `json:"email"`
+	Password string `json:"password"`
+}
+
+type UserResp {
+	Name  string `json:"name"`
+	Email string `json:"email"`
+}
+
+type LoginReq {
+	Email    string `json:"email"`
+	Password string `json:"password"`
+}
+
+type LoginResp {
+	Token string `json:"token"`
+}
+
+type UserInfoReq {
+	Id int64 `path:"id"`
+}
+
+@server (
+	group:  user
+	prefix: /api/user
+)
+service app {
+	@handler registerHandler
+	post /register (UserReq)
+
+	@handler loginHandler
+	post /login (LoginReq) returns (LoginResp)
+
+	@handler userInfoHandler
+	get /userinfo/:id (UserInfoReq) returns (UserResp)
+}
+
