@@ -12,9 +12,9 @@ import (
 func Postgres(name string, dsn string) (*gorm.DB, error) {
 	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
 	if err != nil {
-		panic("Connect Mysql Error, error=" + err.Error())
+		panic("Connect Postgres Error, error=" + err.Error())
 	} else {
-		fmt.Println("Connect Mysql Success")
+		fmt.Println("Connect Postgres Success")
 	}
 
 	tableName := fmt.Sprintf("%s_goose_version", name)

@@ -3,33 +3,25 @@
 package types
 
 type LoginReq struct {
-	Email    string `json:"email"`
-	Password string `json:"password"`
+	Email    string `json:"email,example:admin@example.com"` // 邮箱
+	Password string `json:"password,example:123456"`         // 密码
 }
 
 type LoginResp struct {
-	Token string `json:"token"`
-}
-
-type Request struct {
-	Name string `path:"name,options=you|me"`
-}
-
-type Response struct {
-	Message string `json:"message"`
+	Token string `json:"token"` //  token
 }
 
 type UserInfoReq struct {
-	Id int64 `path:"id"`
+	Id int64 `path:"id,example:3"` // 用户id
 }
 
 type UserReq struct {
-	Name     string `json:"name"`
-	Email    string `json:"email"`
-	Password string `json:"password"`
+	Name     string `json:"name,example:admin"`              // 用户名
+	Email    string `json:"email,example:admin@example.com"` // 邮箱
+	Password string `json:"password,example:123456"`         // 密码
 }
 
 type UserResp struct {
-	Name  string `json:"name"`
-	Email string `json:"email"`
+	Name  string `json:"name"`  // 用户名
+	Email string `json:"email"` // 邮箱
 }

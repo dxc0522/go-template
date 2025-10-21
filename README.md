@@ -1,8 +1,21 @@
-## command
-* api修改 `goctl api go -api app.api -dir .`
-* 文档生成 `goctl api plugin -plugin goctl-swagger="swagger -filename doc/app.json" -api app.api -dir .`
-* 文档预览 `docker run -d --name swag -p 8087:8080 -e SWAGGER_JSON=/opt/app.json -v /Users/dou/go/src/github.com/go-template/app/doc/:/opt swaggerapi/swagger-ui`
-`DEV_MODE=app-prd dc up -d --force-recreate --build study-go`
+# Go Zero Template Repository
+
+基于 `go-zero` 框架实现的 Go 语言模板仓库，用于快速构建微服务应用。
+
+## 特性
+
+- 基于 `go-zero` 微服务框架
+- 预设标准项目结构
+- 支持环境变量配置覆盖
+- 集成 API 网关和 RPC 服务模板
 
 ## 环境变量
-可以直接覆盖文件变量
+
+可以直接覆盖系统变量变量，支持灵活的配置管理。
+
+## 快速开始
+
+1. 克隆仓库
+2. 根据业务需求调整 `go-zero` 配置
+3. 设置环境变量
+4. 启动服务进行开发

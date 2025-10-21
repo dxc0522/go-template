@@ -1,35 +1,32 @@
 syntax = "v1"
 
-type Request {
-	Name string `path:"name,options=you|me"`
-}
-
-type Response {
-	Message string `json:"message"`
-}
+info (
+	title:   "接口文档"
+	version: "1.0.0"
+)
 
 type UserReq {
-	Name     string `json:"name"`
-	Email    string `json:"email"`
-	Password string `json:"password"`
+	Name     string `json:"name"` // 用户名
+	Email    string `json:"email"` // 邮箱
+	Password string `json:"password"` // 密码
 }
 
 type UserResp {
-	Name  string `json:"name"`
-	Email string `json:"email"`
+	Name  string `json:"name"` // 用户名
+	Email string `json:"email"` // 邮箱
 }
 
 type LoginReq {
-	Email    string `json:"email"`
-	Password string `json:"password"`
+	Email    string `json:"email"` // 邮箱
+	Password string `json:"password"` // 密码
 }
 
 type LoginResp {
-	Token string `json:"token"`
+	Token string `json:"token"` //  token
 }
 
 type UserInfoReq {
-	Id int64 `path:"id"`
+	Id int64 `path:"id"` // 用户id
 }
 
 @server (
@@ -37,12 +34,21 @@ type UserInfoReq {
 	prefix: /api/user
 )
 service app {
+	@doc (
+		summary: "注册用户"
+	)
 	@handler registerHandler
 	post /register (UserReq)
 
+	@doc (
+		summary: "登录"
+	)
 	@handler loginHandler
 	post /login (LoginReq) returns (LoginResp)
 
+	@doc (
+		summary: "用户详情"
+	)
 	@handler userInfoHandler
 	get /userinfo/:id (UserInfoReq) returns (UserResp)
 }
