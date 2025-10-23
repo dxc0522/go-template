@@ -1,4 +1,4 @@
-name: local-project
+name: project
 services:
   app:
     container_name: app
@@ -6,8 +6,8 @@ services:
     build:
       context: ./
       dockerfile: Dockerfile
-      args:
-        - DEV_MODE=app
+    environment:
+      - POSTGRES_DSN=postgres://postgres:123456@postgresql:5432/postgres
     networks:
       - public
 networks:
